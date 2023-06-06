@@ -1,0 +1,44 @@
+--Creating a store database 
+
+CREATE TABLE manga_store (id INTEGER PRIMARY KEY, name TEXT, rating NUMERIC, price NUMERIC, genre TEXT);
+
+INSERT INTO 
+manga_store
+
+VALUES
+(1, "Witch hat atelier", 10, 10.99, "Fantasy"),
+(2, "Snow Fairy", 10, 12.50, "Slice of life"),
+(3, "Jujutsu Kaisen", 7.5, 10.90, "Action"),
+(4, "Sailor Moon", 8.5, 7, "Magical Girl"),
+(5, "A White Rose In Bloom", 9, 11.99, "Romance"),
+(6, "The Stars Do Shine", 10, 0, "Fantasy"),
+(7, "Hell's Paradise", 9, 10.99, "Action"),
+(8, "Yona of the Dawn", 10, 9.50, "Action"),
+(9, "March Comes In Like A Lion", 10, 12.99, "Slice of life"),
+(10, "Kimi Ni Todoke", 10, 12, "Romance"),
+(11, "Little Witch Academia", 10, 8.90, "Fantasy"),
+(12, "I Hear The Sunspot", 10, 13.50, "Romance"),
+(13, "Chainsaw Man", 10, 11.99, "Action"),
+(14, "Mob Psycho 100", 10, 10.50, "Slice of life"),
+(15, "Skip and Loafer", 10, 9.99, "Slice of life");
+
+--selecting all values
+SELECT * FROM manga_store
+
+--selecting all books wwith rating of 8 or above
+WHERE rating >=8
+
+--ordering by price
+ORDER BY price asc ;
+
+--what is the avg price of all manga in the slice of life genre? 
+SELECT AVG(price) "avg slice of life manga price"
+FROM manga_store
+where genre="Slice of life"; 
+
+--what are the best rated manga? 
+SELECT name, price, rating
+FROM manga_store
+WHERE genre="Slice of life"
+order by rating desc
+limit 3; 
