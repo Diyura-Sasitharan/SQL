@@ -1,9 +1,9 @@
 --Creating a store database 
 
-CREATE TABLE manga_store (id INTEGER PRIMARY KEY, name TEXT, rating NUMERIC, price NUMERIC, genre TEXT);
+CREATE TABLE book_store (id INTEGER PRIMARY KEY, name TEXT, rating NUMERIC, price NUMERIC, genre TEXT);
 
 INSERT INTO 
-manga_store
+book_store
 
 VALUES
 (1, "Witch hat atelier", 10, 10.99, "Fantasy"),
@@ -31,14 +31,14 @@ WHERE rating >=8
 --ordering by price
 ORDER BY price asc ;
 
---what is the avg price of all manga in the slice of life genre? 
+--what is the avg price of all book in the slice of life genre? 
 SELECT AVG(price) "avg slice of life manga price"
-FROM manga_store
+FROM book_store
 where genre="Slice of life"; 
 
---what are the best rated manga? 
+--what are the best rated books? 
 SELECT name, price, rating
-FROM manga_store
+FROM book_store
 WHERE genre="Slice of life"
 order by rating desc
 limit 3; 
