@@ -25,7 +25,7 @@ VALUES
 --selecting all values
 SELECT * FROM manga_store
 
---selecting all books wwith rating of 8 or above
+--selecting all books with rating of 8 or above
 WHERE rating >=8
 
 --ordering by price
