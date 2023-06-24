@@ -1,0 +1,60 @@
+/* 
+ database containing information about genshin impact characters to showcase joining multiple tables together 
+*/
+
+--Creating a table of anime characters
+
+CREATE TABLE game_characters (id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT, vision TEXT, job TEXT, age NUMERIC);
+
+INSERT INTO 
+game_characters (name, vision, job, age)
+
+VALUES
+("kaeya alberich", "cryo", "cavalry captain", 22),
+("albedo", "geo", "investigation captain", 500),
+("klee", "pyro", "spark knight", 4),
+("yun jin", "geo", "opera performer", 21),
+("shenhe", "cryo", "unemployed", 26),
+("kokomi sangonomiya", "hydro", "divine priestess", 22);
+
+--Creating a table of region
+
+CREATE TABLE region (id INTEGER PRIMARY KEY AUTOINCREMENT, person_id NUMERIC, name TEXT);
+
+INSERT INTO 
+region (person_id, name)
+
+VALUES
+(1, "khaenri'ah"),
+(2, "khaenri'ah"),
+(3, "mondstadt"),
+(4, "liyue"),
+(5, "liyue"),
+(6, "inazuma");
+
+--Creating a table of friends
+
+CREATE TABLE friends (id INTEGER PRIMARY KEY AUTOINCREMENT, person1_id NUMERIC, person2_id NUMERIC);
+
+INSERT INTO 
+friends (person1_id, person2_id)
+
+VALUES
+(1, 2),
+(2, 3),
+(3, 1),
+(4, 5),
+(5, 1),
+(6, 1);
+
+-- let's see which characters are friends!
+
+SELECT a.name, region.name AS "region", a.vision, a.job, a.age, b.name AS "friend's name"
+
+FROM friends
+JOIN game_characters a
+ON friends.person1_id = a.id
+JOIN game_characters b
+ON friends.person2_id = b.id
+JOIN region
+ON a.id = region.person_id
