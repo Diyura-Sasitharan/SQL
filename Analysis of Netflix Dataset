@@ -1,4 +1,4 @@
-This project utilized data from the following Netflix dataset:
+# This project utilized data from the following Netflix datasets to extract information regarding TV and Movie content on Netflix's platform through the use of PostgreSQL dialect:
 
 CREATE TABLE netflix_titles_info
     ("show_id" varchar(5), "type" varchar(7), "title" varchar(58), "country" varchar(74), "date_added" timestamp, "release_year" int, "rating" varchar(5), "duration" varchar(9), "listed_in" varchar(74))
