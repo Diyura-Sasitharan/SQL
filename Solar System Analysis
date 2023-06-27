@@ -113,7 +113,7 @@ FROM solar_system_objects;
 
 SELECT type_of_object, surface_gravity,
     CASE 
-        WHEN surface_gravity > 12.31064533333333 THEN "greater"
+        WHEN surface_gravity > ( SELECT AVG(surface_gravity) FROM solar_system_objects ) THEN "greater"
         ELSE "smaller"
     END as "greater or smaller surface gravity compared to the averge?"
     FROM solar_system_objects
