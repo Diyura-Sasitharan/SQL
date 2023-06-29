@@ -1,0 +1,68 @@
+-- Here I am querying multiple tables in order to quanitify information through statistics and find out more information regarding customers and their orders
+
+--1 how many orders placed in jan? 9681
+
+SELECT COUNT(orderID) FROM BIT_DB.JanSales
+WHERE length(orderID) = 6
+AND orderID <> 'Order ID'
+AND orderID IS NOT NULL
+AND orderID <> '' 
+;
+
+--2 how many orders were iphone? 379
+
+SELECT COUNT(orderID) FROM BIT_DB.JanSales
+WHERE length(orderID) = 6
+AND orderID <> 'Order ID'
+AND orderID IS NOT NULL
+AND orderID <> '' 
+AND Product = 'iPhone'
+;
+
+--3 select customer acc numbers for all orders placed on feb? 13006
+SELECT COUNT(cust.acctnum) 
+FROM BIT_DB.customers cust
+INNER JOIN BIT_DB.FebSales feb
+ON cust.order_id = feb.orderID
+WHERE length(orderID) = 6
+AND orderID <> 'Order ID'
+AND orderID IS NOT NULL
+AND orderID <> '' 
+;
+
+-- 4 which product is cheapest one sold in jan and what was price? 
+--2.99, AAA BATTERIES (4-PACK)
+
+SELECT distinct Product, price FROM BIT_DB.JanSales
+WHERE length(orderid) = 6 
+AND orderid <> 'Order ID'
+AND price in ( SELECT MIN(price) FROM BIT_DB.JanSales ) 
+;
+
+--5 total revenue for each product sold in jan?
+
+SELECT SUM(Quantity)*price AS revenue, product
+FROM BIT_DB.JanSales
+GROUP BY product
+;
+
+--6 which products sold in feb at 548 Lincoln st, Seattle, WA 98101,
+-- how many of each sold? total revenue? AA Batteries (4-pack), 2 sold, £7.68
+
+SELECT Quantity, Product, SUM(Quantity)*price AS revenue 
+FROM BIT_DB.FebSales
+WHERE location = '548 Lincoln St, Seattle, WA 98101'
+GROUP BY Product
+;
+
+--7 how many customers ordered more than 2 products at a time in feb?  278
+-- avg amnt spent for those customers? £13.80 
+
+SELECT COUNT(distinct cust.acctnum), AVG(quantity*price)
+FROM BIT_DB.FebSales feb
+INNER JOIN BIT_DB.customers cust
+ON cust.order_id = feb.orderID
+WHERE Quantity > 2
+AND length(orderid) = 6 
+AND orderid <> 'Order ID'
+;
