@@ -59,3 +59,17 @@ GROUP BY artist_name
 HAVING AVG(danceability) > 0.85
 ;
 
+-- Calculate the average popularity for artists & if 90 or above, label them as a top star.
+-- Here I have attempted to combine CTE's into my query 
+
+WITH popularity_average AS (
+SELECT s.artist_name,
+AVG(s.popularity) AS average_popularity
+FROM SpotifyData s
+GROUP BY s.artist_name
+)
+
+SELECT artist_name, average_popularity, 'Top Star' AS tag
+FROM popularity_average
+WHERE average_popularity >= 90
+
